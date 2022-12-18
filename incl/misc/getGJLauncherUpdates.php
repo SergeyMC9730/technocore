@@ -1,9 +1,7 @@
 <?php
 chdir(dirname(__FILE__));
 
-require_once "../incl/lib/exploitPatch.php";
-
-$gameVersion = ExploitPatch::remove($_POST["gameVersion"]);
+$gameVersion = $_POST["gameVersion"];
 
 $toUpdate21 = 0;
 

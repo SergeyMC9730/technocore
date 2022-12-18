@@ -1,5 +1,4 @@
 <?php
-require_once "../incl/lib/exploitPatch.php";
 
 $has_custom_levels = 0;
 
