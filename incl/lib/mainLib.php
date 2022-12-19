@@ -292,7 +292,7 @@ class mainLib {
 	}
 	public function getUserID($extID, $userName = "Undefined") {
 		include __DIR__ . "/connection.php";
-		if(is_numeric($extID)){
+		if(is_numeric($extID) AND $extID != null){
 			$register = 1;
 		}else{
 			$register = 0;
