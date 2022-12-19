@@ -2,14 +2,18 @@
 //error_reporting(0);
 chdir(dirname(__FILE__));
 include "../lib/connection.php";
-// require_once "../lib/GJPCheck.php";
+require_once "../lib/GJPCheck.php";
 require_once "../lib/exploitPatch.php";
 require_once "../lib/mainLib.php";
+include "../../config/security.php";
 $mainLib = new mainLib();
 require_once "../lib/mainLib.php";
 $gs = new mainLib();
 //here im getting all the data
-// $gjp = ExploitPatch::remove($_POST["gjp"]);
+$gjp = 0;
+if(isset($_POST["gjp"])){
+	$gjp = ExploitPatch::remove($_POST["gjp"]);
+}
 $gameVersion = ExploitPatch::remove($_POST["gameVersion"]);
 $userName = ExploitPatch::charclean($_POST["userName"]);
 $levelID = ExploitPatch::remove($_POST["levelID"]);
@@ -68,7 +72,7 @@ if(isset($_POST["password"])){
 	$password = ExploitPatch::remove($_POST["password"]);
 }else{
 	$password = 1;
-	if($gameVersion > 17){
+	if($gameVersion > 17 && !$unregisteredSubmissions){
 		$password = 0;
 	}
 }
@@ -79,6 +83,7 @@ $uploadDate = time();
 $query = $db->prepare("SELECT count(*) FROM levels WHERE uploadDate > :time AND (userID = :userID OR hostname = :ip)");
 $query->execute([':time' => $uploadDate - 60, ':userID' => $userID, ':ip' => $hostname]);
 if($query->fetchColumn() > 0){
+	error_log("Execution failed at uploadGJLevel.php:85 (-1)");
 	exit("-1");
 }
 $query = $db->prepare("INSERT INTO levels (levelName, gameVersion, binaryVersion, userName, levelDesc, levelVersion, levelLength, audioTrack, auto, password, original, twoPlayer, songID, objects, coins, requestedStars, extraString, levelString, levelInfo, secret, uploadDate, userID, extID, updateDate, unlisted, hostname, isLDM, wt, wt2, unlisted2, settingsString)
@@ -102,6 +107,7 @@ if($levelString != "" AND $levelName != ""){
 		echo $levelID;
 	}
 }else{
+	error_log("Execution failed at uploadGJLevel.php:109 (-1)");
 	echo -1;
 }
 ?>

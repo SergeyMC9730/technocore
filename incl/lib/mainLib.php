@@ -1,5 +1,6 @@
 <?php
 include_once __DIR__ . "/ip_in_range.php";
+include "../../config/security.php";
 class mainLib {
 	public function getAudioTrack($id) {
 		$songs = ["Stereo Madness by ForeverBound",
@@ -271,7 +272,10 @@ class mainLib {
 		if(!empty($_POST["udid"]) AND $_POST['gameVersion'] < 20 AND $unregisteredSubmissions) 
 		{
 			$id = ExploitPatch::remove($_POST["udid"]);
-			if(is_numeric($id)) exit("-1");
+			if(is_numeric($id)) {
+				error_log("Execution failed in mainLib.php:275 (-1)");
+				exit("-1");
+			}
 		}
 		elseif(!empty($_POST["accountID"]) AND $_POST["accountID"]!="0")
 		{
@@ -279,7 +283,10 @@ class mainLib {
 		}
 		else
 		{
-			exit("-1");
+			if(!$unregisteredSubmissions) {
+				error_log("Execution failed in mainLib.php:286 (-1)");
+				exit("-1");
+			}
 		}
 		return $id;
 	}
