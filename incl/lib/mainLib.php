@@ -269,7 +269,7 @@ class mainLib {
 		include_once __DIR__ . "/exploitPatch.php";
 		include_once __DIR__ . "/GJPCheck.php";
 
-		if(!empty($_POST["udid"]) AND $_POST['gameVersion'] < 20 AND $unregisteredSubmissions) 
+		if(!empty($_POST["udid"]) AND $_POST['gameVersion'] < 22 AND $unregisteredSubmissions) 
 		{
 			$id = ExploitPatch::remove($_POST["udid"]);
 			if(is_numeric($id)) {
