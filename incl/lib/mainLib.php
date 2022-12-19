@@ -280,6 +280,13 @@ class mainLib {
 		elseif(!empty($_POST["accountID"]) AND $_POST["accountID"]!="0")
 		{
 			$id = GJPCheck::getAccountIDOrDie();
+			if($id == 65535) { // unregistered player
+				$id = ExploitPatch::remove($_POST["udid"]);
+				if(is_numeric($id)) {
+					error_log("Execution failed in mainLib.php:275 (-1)");
+					exit("-1");
+				}
+			}
 		}
 		else
 		{

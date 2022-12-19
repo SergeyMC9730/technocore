@@ -16,6 +16,9 @@ $percent = !empty($_POST["percent"]) ? ExploitPatch::remove($_POST["percent"]) :
 
 $id = $mainLib->getIDFromPost();
 $register = is_numeric($id);
+error_log($id);
+if ($id == 65535)
+	$register = 0;
 $userID = $mainLib->getUserID($id, $userName);
 $uploadDate = time();
 $decodecomment = base64_decode($comment);
