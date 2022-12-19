@@ -2,14 +2,14 @@
 //error_reporting(0);
 chdir(dirname(__FILE__));
 include "../lib/connection.php";
-require_once "../lib/GJPCheck.php";
+// require_once "../lib/GJPCheck.php";
 require_once "../lib/exploitPatch.php";
 require_once "../lib/mainLib.php";
 $mainLib = new mainLib();
 require_once "../lib/mainLib.php";
 $gs = new mainLib();
 //here im getting all the data
-$gjp = ExploitPatch::remove($_POST["gjp"]);
+// $gjp = ExploitPatch::remove($_POST["gjp"]);
 $gameVersion = ExploitPatch::remove($_POST["gameVersion"]);
 $userName = ExploitPatch::charclean($_POST["userName"]);
 $levelID = ExploitPatch::remove($_POST["levelID"]);
